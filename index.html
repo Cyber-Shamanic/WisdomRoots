@@ -4,10 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0b1022">
-  <meta name="description" content="WisdomRoots — ספריית החכמה העברית: ניתוח 119 עמודי הספר, תוכן עניינים, שבעה קלפים מאוירים, אטלס יצירה ומפת משימות.">
+  <meta name="description" content="WisdomRoots — ספריית החכמה העברית: 119 עמודי מחקר, שבעה קלפים, 20 סטיקרים להורדה, שלושה ספרוני PDF, אטלס ומפת משימות.">
   <title>WisdomRoots — שורשי החכמה | ספרייה עברית</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="studio.css">
+  <script defer src="studio.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -18,11 +20,13 @@
         <div class="brand-mark" aria-hidden="true"><span>✦</span></div>
         <div><b>WisdomRoots</b><small>שוֹרְשֵׁי הַחָכְמָה</small></div>
       </div>
-      <button class="version-badge" id="versionBtn" type="button" aria-label="פתיחת יומן הגרסאות"><span class="pulse-dot"></span> גרסה 0.0.3 <span aria-hidden="true">↗</span></button>
+      <button class="version-badge" id="versionBtn" type="button" aria-label="פתיחת יומן הגרסאות"><span class="pulse-dot"></span> גרסה 0.0.4 <span aria-hidden="true">↗</span></button>
       <p class="menu-label">הספרייה</p>
       <nav class="main-nav" id="mainNav">
         <button class="nav-item active" data-route="home"><span aria-hidden="true">⌂</span> בית הספרייה</button>
         <button class="nav-item" data-route="cards"><span aria-hidden="true">✦</span> שבעת שערי הלב <em>7</em></button>
+        <button class="nav-item" data-route="stickers"><span aria-hidden="true">❖</span> גלריית סטיקרים <em>20</em></button>
+        <button class="nav-item" data-route="booklets"><span aria-hidden="true">▤</span> ספריית ספרונים <em>3</em></button>
         <button class="nav-item" data-route="map"><span aria-hidden="true">▦</span> מפת הספר <em>119</em></button>
         <button class="nav-item" data-route="read"><span aria-hidden="true">☷</span> מחקר וניתוח</button>
         <button class="nav-item" data-route="atlas"><span aria-hidden="true">✺</span> אטלס היצירה</button>
@@ -56,7 +60,7 @@
         </div>
       </header>
       <main id="main" tabindex="-1"><div class="initial-loading"><div class="spinner"></div><p>טוענים את שורשי החכמה...</p></div></main>
-      <footer class="site-footer"><span>WisdomRoots · מהדורה 0.0.3</span><span>שבת, כ׳ בחשוון תשפ״ז · 31.10.2026</span><span>״לֵב נָבוֹן יִקְנֶה דָּעַת״ — משלי י״ח, ט״ו</span></footer>
+      <footer class="site-footer"><span>WisdomRoots · מהדורה 0.0.4</span><span>שבת, כ׳ בחשוון תשפ״ז · 31.10.2026</span><span>״לֵב נָבוֹן יִקְנֶה דָּעַת״ — משלי י״ח, ט״ו</span></footer>
     </div>
   </div>
 
@@ -67,6 +71,14 @@
   <dialog id="versionDialog" class="doc-dialog" aria-label="יומן גרסאות">
     <div class="dialog-top"><div><p class="eyebrow">תיעוד פיתוח</p><h2>יומן גרסאות</h2></div><button class="icon-button" data-close="versionDialog" aria-label="סגירה">×</button></div>
     <article id="versionContent" class="markdown-body"></article>
+  </dialog>
+  <dialog id="stickerDialog" class="detail-dialog" aria-label="תצוגת סטיקר">
+    <div class="dialog-top"><div><p class="eyebrow">WisdomRoots · Sticker Studio</p><h2 id="stickerDialogTitle">סטיקר</h2></div><button class="icon-button" data-close="stickerDialog" aria-label="סגירה">×</button></div>
+    <div class="sticker-dialog-body"><div class="sticker-modal-art"><img id="stickerDialogImage" alt=""></div><div id="stickerDialogInfo" class="sticker-dialog-info"></div></div>
+  </dialog>
+  <dialog id="bookletDialog" class="detail-dialog booklet-dialog" aria-label="תצוגת ספרון PDF">
+    <div class="dialog-top"><div><p class="eyebrow">WisdomRoots · Booklet Library</p><h2 id="bookletDialogTitle">ספרון</h2></div><button class="icon-button" data-close="bookletDialog" aria-label="סגירה">×</button></div>
+    <div class="booklet-dialog-body"><iframe id="bookletFrame" title="תצוגת הספרון" loading="lazy"></iframe><div class="booklet-dialog-actions"><a class="button button-primary" id="bookletDownload" download>↓ הורדת PDF</a><a class="button button-outline" id="bookletOpen" target="_blank" rel="noopener noreferrer">↗ פתיחה בחלון חדש</a></div></div>
   </dialog>
 </body>
 </html>

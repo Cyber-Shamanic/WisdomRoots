@@ -1,0 +1,47 @@
+/* WisdomRoots Studio 0.0.4 — gallery components, RTL responsive. */
+.studio-promos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:12px 0 35px}
+.studio-promo{min-height:222px;display:flex;gap:20px;align-items:center;text-align:right;border:1px solid var(--line);border-radius:20px;background:linear-gradient(135deg,var(--panel-2),var(--panel));color:var(--ink);padding:20px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.studio-promo:hover{transform:translateY(-4px);border-color:var(--gold)}
+.studio-promo h3{font-size:23px;margin:5px 0 6px;color:var(--ink)}.studio-promo p{font-size:13px;color:var(--muted);line-height:1.7;margin:0 0 13px}
+.studio-promo b{font-size:13px;color:var(--teal)}.studio-promo-art{flex:0 0 38%;min-width:0;display:grid;place-items:center}
+.studio-promo-art img{max-width:100%;max-height:194px;object-fit:contain;filter:drop-shadow(0 9px 18px rgba(0,0,0,.35))}
+.studio-book-promo{flex:0 0 32%;height:175px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(150deg,#25415c,#101b32);border:7px double #e8c37b;border-radius:8px;color:var(--gold);font-family:Georgia,serif;font-size:72px;box-shadow:12px 12px 0 rgba(205,171,117,.18)}
+.studio-book-promo span{font-size:12px;letter-spacing:.6px}
+.studio-intro{display:flex;align-items:center;gap:25px;padding:22px 28px;margin:0 0 22px;border:1px solid rgba(113,213,204,.28);border-radius:20px;background:linear-gradient(100deg,rgba(68,136,145,.12),rgba(201,166,103,.09))}
+.studio-intro h2{font-size:24px;margin:0 0 8px}.studio-intro p{color:var(--muted);margin:0;max-width:750px;font-size:14px;line-height:1.75}
+.studio-intro .tag{margin-inline-start:auto;white-space:nowrap}.studio-hero-icon{width:73px;height:73px;border-radius:22px;background:linear-gradient(140deg,rgba(230,191,122,.23),rgba(98,216,211,.12));color:var(--gold);display:grid;place-items:center;font-size:46px;flex:0 0 auto}
+.sticker-filter-tabs{margin:0 0 15px;display:flex;flex-wrap:wrap;gap:6px}.sticker-filter-tabs button{padding:8px 20px}
+.sticker-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.sticker-card{background:linear-gradient(155deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:20px;padding:13px;min-width:0;transition:transform .2s,border-color .2s}
+.sticker-card:hover{border-color:rgba(226,188,116,.5);transform:translateY(-3px)}
+.sticker-art-button{display:grid;place-items:center;width:100%;background:radial-gradient(ellipse at center,rgba(114,205,215,.11),transparent 65%),repeating-conic-gradient(rgba(170,185,197,.025) 0 25%,transparent 0 50%) 50%/28px 28px;border:1px solid rgba(198,210,229,.08);border-radius:14px;overflow:hidden;padding:8px}
+.sticker-art-button img{width:100%;height:auto;max-height:307px;object-fit:contain;aspect-ratio:1}
+.sticker-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 4px}
+.sticker-meta b{font-size:16px;display:block}.sticker-meta small{color:var(--muted);font-size:11px;display:block;margin-top:3px}
+.sticker-toolbar{display:flex;flex-wrap:wrap;gap:6px}.sticker-toolbar .mini-button{flex:1 1 auto;white-space:nowrap;text-align:center;font-size:11px}
+.sticker-dialog-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:23px;padding:23px}
+.sticker-modal-art{background:radial-gradient(circle at center,rgba(63,130,147,.20),transparent 75%);border:1px solid var(--line);border-radius:17px;display:grid;place-items:center}
+.sticker-modal-art img{max-height:69vh;max-width:100%;width:100%;object-fit:contain}
+.sticker-dialog-info{padding-top:14px}.sticker-dialog-info h3{font-size:27px;color:var(--gold);margin:16px 0 8px}
+.sticker-dialog-info p{font-size:14px;line-height:1.9;color:var(--muted)}.sticker-dialog-info .action-copy{background:rgba(113,213,204,.08);color:var(--ink);padding:18px;border-radius:13px;font-size:18px}
+.sticker-dialog-info .actions{margin-top:20px}
+.booklet-intro{border-color:rgba(231,190,115,.30)}
+.booklet-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px;margin-top:18px}
+.booklet-entry{min-width:0;border:1px solid var(--line);border-radius:20px;background:var(--panel);padding:18px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--shadow)}
+.booklet-cover{--book-accent:#dfbf7c;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:min(100%,278px);margin:auto;aspect-ratio:420/595;border:1px solid var(--book-accent);border-right:8px double var(--book-accent);border-radius:7px;background:radial-gradient(ellipse at 45% 40%,rgba(73,102,131,.44),transparent 65%),#0B1429;color:#fff;overflow:hidden;padding:25px 18px;box-shadow:12px 13px 0 rgba(30,43,60,.26),0 15px 30px rgba(0,0,0,.29);transition:transform .2s}
+.booklet-cover:hover{transform:rotate(-1deg) translateY(-3px)}.booklet-cover:before{content:"";position:absolute;inset:14px;border:1px solid var(--book-accent);opacity:.6;pointer-events:none}
+.booklet-orbit{position:absolute;top:16%;width:67%;aspect-ratio:1;border:3px solid var(--book-accent);border-radius:50%;box-shadow:0 0 0 18px rgba(219,183,116,.07),0 0 0 36px rgba(219,183,116,.045)}
+.booklet-symbol{position:absolute;top:21%;color:var(--book-accent);font-size:100px}
+.booklet-version{position:absolute;top:28px;font-size:10px;letter-spacing:2px;color:var(--book-accent);font-weight:700}
+.booklet-cover strong{text-align:center;font-size:24px;line-height:1.35;position:relative;z-index:1;color:#fff}
+.booklet-cover small{color:var(--book-accent);font-size:13px;margin-top:12px}.booklet-pages{font-size:10px;color:#b8c7dc;margin-top:20px}
+.booklet-detail{display:flex;flex-direction:column;flex:1}.booklet-detail h3{font-size:20px;color:var(--ink);margin:0 0 6px}.booklet-detail p{font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 14px}
+.booklet-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;margin-bottom:17px}.booklet-tags span{font-size:11px;background:rgba(120,187,201,.10);border:1px solid var(--line);padding:3px 9px;border-radius:12px;color:var(--muted)}
+.booklet-buttons{display:flex;flex-wrap:wrap;gap:7px}.booklet-buttons>*{flex:1 1 115px;text-align:center;white-space:nowrap}
+.booklet-dialog{width:min(1050px,96vw)}.booklet-dialog-body{padding:14px}.booklet-dialog-body iframe{width:100%;height:min(72vh,820px);background:#0b1326;border:0;border-radius:9px}
+.booklet-dialog-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;padding:12px 0 3px}
+body[data-theme="light"] .sticker-card,body[data-theme="light"] .booklet-entry{box-shadow:0 8px 28px rgba(33,43,51,.09)}
+@media(max-width:1180px){.sticker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.booklet-grid{gap:14px}.booklet-entry{padding:12px}.booklet-cover strong{font-size:19px}}
+@media(max-width:850px){.studio-promos,.booklet-grid{grid-template-columns:1fr}.booklet-entry{display:grid;grid-template-columns:minmax(150px,230px) minmax(0,1fr);align-items:center}.booklet-cover{margin:0}.booklet-cover strong{font-size:20px}}
+@media(max-width:690px){.studio-intro{padding:17px;gap:13px}.studio-intro h2{font-size:20px}.studio-hero-icon{width:51px;height:51px;font-size:29px}.studio-intro .tag{display:none}.studio-promo{padding:14px;gap:12px;min-height:170px}.studio-promo h3{font-size:20px}.studio-promo-art{flex-basis:35%}.studio-book-promo{height:142px;font-size:52px}.sticker-grid{gap:9px}.sticker-card{padding:7px;border-radius:13px}.sticker-art-button{padding:3px}.sticker-meta{padding:8px 2px}.sticker-meta b{font-size:12px}.sticker-meta .tag{display:none}.sticker-toolbar .mini-button{font-size:10px;padding:5px}.booklet-entry{grid-template-columns:115px minmax(0,1fr);gap:13px}.booklet-cover{width:115px;min-height:163px;padding:12px 5px}.booklet-cover strong{font-size:13px}.booklet-cover small{font-size:10px}.booklet-pages,.booklet-version{font-size:7px}.booklet-symbol{font-size:44px}.booklet-detail h3{font-size:16px}.booklet-detail p{font-size:12px}.booklet-buttons{gap:5px}.booklet-buttons .button{font-size:11px;padding:7px}.sticker-dialog-body{grid-template-columns:1fr;overflow:auto;max-height:76vh;padding:11px;gap:9px}.sticker-modal-art img{max-height:38vh}.sticker-dialog-info{padding:0}.sticker-dialog-info h3{margin:3px 0}.booklet-dialog-body iframe{height:63vh}}
+@media(max-width:390px){.sticker-grid{grid-template-columns:1fr}.booklet-entry{grid-template-columns:1fr}.booklet-cover{width:65%;min-height:260px;margin:auto}.booklet-cover strong{font-size:20px}}

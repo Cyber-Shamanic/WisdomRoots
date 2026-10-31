@@ -1,6 +1,7 @@
-/* WisdomRoots 0.0.3 — original browser-local, dependency-free interface */
+/* WisdomRoots 0.0.4 — original browser-local, dependency-free interface */
 (() => {
   'use strict';
+  const Studio=window.WisdomStudio;
   const DOCS = [
     {file:'README.md',label:'מבוא למאגר',icon:'⌂'},
     {file:'INDEX_HE.md',label:'תוכן עניינים — 119 עמודים',icon:'▦'},
@@ -27,7 +28,7 @@
     ['☀️','שמש, נצרות, מצרים והלב',94,100],['🪬','נפש, ידיים, מסדרים וסמליות',101,112],
     ['❤️','מיניות, יחסים ואיזון',113,117],['⚖️','שבעת החוקים ואחרית דבר',118,119]
   ];
-  const state = {route:'home',doc:'ANALYSIS_HE.md',mapQuery:'',mapTopic:'all',taskFilter:'all',taskQuery:'',cardTurn:{},selectedCard:null,selectedSide:'front',query:''};
+  const state = {route:'home',doc:'ANALYSIS_HE.md',mapQuery:'',mapTopic:'all',taskFilter:'all',taskQuery:'',stickerFilter:'all',cardTurn:{},selectedCard:null,selectedSide:'front',query:''};
   const contents = {};
   let pages=[],tasks=[];
   let taskOverrides={};
@@ -105,22 +106,41 @@
   }
   function taskDone(t){return Object.prototype.hasOwnProperty.call(taskOverrides,t.id)?!!taskOverrides[t.id]:t.checked;}
   function taskProgress(){return tasks.filter(taskDone).length;}
-  function pageName(){return {home:'בית הספרייה',cards:'שבעת שערי הלב',map:'מפת הספר',read:'מחקר וניתוח',atlas:'אטלס היצירה',todo:'מפת המשימות',changes:'יומן גרסאות',about:'אודות וקרדיטים',search:'תוצאות חיפוש'}[state.route]||'בית הספרייה';}
+  function pageName(){return {home:'בית הספרייה',cards:'שבעת שערי הלב',stickers:'גלריית סטיקרים',booklets:'ספריית ספרונים',map:'מפת הספר',read:'מחקר וניתוח',atlas:'אטלס היצירה',todo:'מפת המשימות',changes:'יומן גרסאות',about:'אודות וקרדיטים',search:'תוצאות חיפוש'}[state.route]||'בית הספרייה';}
   function header(kicker,title,subtitle){return `<div class="page-heading"><span class="tag">${kicker}</span><h1>${title}</h1><p>${subtitle}</p></div>`;}
   function home(){
-    return `<section class="hero"><div class="hero-copy"><span class="kicker">✦ ספריית ידע מתפתחת · גרסה 0.0.3</span><h1>הַחָכְמָה<br><span>מַכָּה שֹׁרֶשׁ</span></h1><p>מסע עברי בין אור, תודעה, סמלים ומידות האדם. מיפוי ביקורתי של 119 עמודי <i>The Book of Wisdom</i> לצד שבעה קלפי חכמה מקוריים וארכיון יצירה מתרחב.</p><div class="actions"><button class="button button-primary" data-route="cards">✦ לגלריית הקלפים</button><button class="button button-outline" data-route="map">▦ למפת 119 העמודים</button></div></div><div class="hero-art"><div class="hero-orbit"></div><img src="${img('front','07')}" alt="קלף שער החיבור: עץ אור וענפים שזורים"></div></section>
+    return `<section class="hero"><div class="hero-copy"><span class="kicker">✦ ספריית ידע מתפתחת · גרסה 0.0.4</span><h1>הַחָכְמָה<br><span>מַכָּה שֹׁרֶשׁ</span></h1><p>מסע עברי בין אור, תודעה, סמלים ומידות האדם. מיפוי ביקורתי של 119 עמודי <i>The Book of Wisdom</i> לצד שבעה קלפי חכמה, 20 סטיקרים מקוריים ושלושה ספרוני PDF.</p><div class="actions"><button class="button button-primary" data-route="stickers">❖ לגלריית הסטיקרים</button><button class="button button-outline" data-route="booklets">▤ לספרונים</button></div></div><div class="hero-art"><div class="hero-orbit"></div><img src="${img('front','07')}" alt="קלף שער החיבור: עץ אור וענפים שזורים"></div></section>
       <div class="stats-grid"><div class="stat-card"><span class="stat-icon">📖</span><b>119</b><p>עמודי תוכן מקוטלגים</p></div><div class="stat-card"><span class="stat-icon">✦</span><b>14</b><p>תמונות קלפים, חזית וגב</p></div><div class="stat-card"><span class="stat-icon">☷</span><b>12</b><p>אשכולות ידע ופרשנות</p></div><div class="stat-card"><span class="stat-icon">☑</span><b>100</b><p>משימות במפת הפיתוח</p></div></div>
       <div class="section-heading"><div><h2>שבעת שערי הלב</h2><p>קלפים מקוריים שמחברים סמל, מידה ומעשה יומי.</p></div><button class="link-button" data-route="cards">לכל שבעת הקלפים ←</button></div>
       <div class="card-thumb-list">${GATES.map(g=>`<button class="card-thumb" data-card="${g.id}" aria-label="פתיחת ${esc(g.title)}"><img loading="lazy" src="${img('front',g.id)}" alt="${esc(g.title)}"><span>${g.emoji} ${esc(g.plain)}</span></button>`).join('')}</div>
       <div class="section-heading"><div><h2>12 שערי הלימוד</h2><p>מפת ניווט ל־119 עמודי המקור, עם תרגום כותרות והבחנה בין סמל לעובדה.</p></div><button class="link-button" data-route="read">לעיון בניתוח המלא ←</button></div>
       <div class="topic-grid">${TOPICS.map((t,i)=>`<button class="topic" data-topic="${i}"><span class="topic-emoji">${t[0]}</span><span><strong>${esc(t[1])}</strong><small>עמודים ${t[2]}–${t[3]} · ${t[3]-t[2]+1} מקטעים</small></span></button>`).join('')}</div>
       <div class="section-heading"><div><h2>הגישה שלנו לחכמה</h2><p>לומדים, מפרשים ובודקים — ואז יוצרים משהו שאפשר לקחת לחיים.</p></div></div>
-      <div class="panel feature-panel"><div><p class="eyebrow">עיקרון עריכה</p><blockquote>״לֹא כָּל סֵמֶל הוּא רְאָיָה, אֲבָל כָּל סֵמֶל יָכוֹל לִפְתֹּחַ שְׁאֵלָה.״</blockquote><p>נבחין בין ידע מתועד, סמל, טענה בלתי מבוססת וטענה שגויה — כדי לשמור על החופש ליצור ועל האחריות לדייק.</p></div><div class="symbols" aria-hidden="true">✦ ⟡ ✧</div></div>`;
+      <div class="panel feature-panel"><div><p class="eyebrow">עיקרון עריכה</p><blockquote>״לֹא כָּל סֵמֶל הוּא רְאָיָה, אֲבָל כָּל סֵמֶל יָכוֹל לִפְתֹּחַ שְׁאֵלָה.״</blockquote><p>נבחין בין ידע מתועד, סמל, טענה בלתי מבוססת וטענה שגויה — כדי לשמור על החופש ליצור ועל האחריות לדייק.</p></div><div class="symbols" aria-hidden="true">✦ ⟡ ✧</div></div>`+studioPromos();
+  }
+  function studioPromos(){
+    const sample=Studio.STICKERS[0];
+    return `<div class="section-heading"><div><h2>חדש בספרייה · גרסה 0.0.4</h2><p>מילים שעוברות מן המחקר אל החיים — סטיקרים וספרונים מקוריים להורדה.</p></div></div><div class="studio-promos"><button class="studio-promo" data-route="stickers"><div class="studio-promo-art"><img src="${Studio.svgData(sample)}" alt="סטיקר מאויר: אור קטן, דרך גדולה"></div><div><span class="eyebrow">20 יצירות · PNG שקוף</span><h3>גלריית סטיקרים</h3><p>מדבקות עם מסרים מנוקדים, קונטור לבן וחתימת AnLoMinus. כל סטיקר להורדה.</p><b>לגלריה ←</b></div></button><button class="studio-promo" data-route="booklets"><div class="studio-book-promo" aria-hidden="true">▤<span>WisdomRoots</span></div><div><span class="eyebrow">3 ספרוני A5 · PDF</span><h3>ספריית ספרונים</h3><p>אור ותודעה, שבעת שערי הלב וחמשת יסודות האדם — קריאה, תרגול והדפסה.</p><b>לספרייה ←</b></div></button></div>`;
   }
   function cards(){
     return header('7 שערים · 14 איורים','שבעת שערי הלב','לחצו על קלף כדי להפוך אותו. לכל שער חזית וגב משלו, מידה מובילה ופעולה מעשית.')+
       `<div class="card-grid">${GATES.map(g=>`<article class="card-entry"><div class="flip-scene" tabindex="0" role="button" aria-label="היפוך קלף ${esc(g.title)}" aria-pressed="false" data-flip="${g.id}"><div class="flip-inner"><div class="flip-face"><img loading="lazy" src="${img('front',g.id)}" alt="חזית ${esc(g.title)}"></div><div class="flip-face flip-back"><img loading="lazy" src="${img('back',g.id)}" alt="גב ${esc(g.title)}"></div></div></div><div class="card-foot"><div><b>${g.emoji} ${esc(g.title)}</b><p>מידה: ${esc(g.virtue)}</p></div><span class="tag">${g.id} / 07</span></div><div class="card-toolbar"><button class="mini-button" data-flip="${g.id}">↻ היפוך</button><button class="mini-button" data-card="${g.id}">⌕ הגדלה</button><a class="mini-button" href="${img('front',g.id)}" download="wisdomroots-front-${g.id}.png">↓ חזית</a><a class="mini-button" href="${img('back',g.id)}" download="wisdomroots-back-${g.id}.png">↓ גב</a></div></article>`).join('')}</div>
       <div class="rights-note">📐 קובצי המקור הם PNG בגודל 1024×1536 פיקסלים (יחס 2:3). נוסחי הניקוד המדויקים נמצאים במסמך הטקסט. לפני הדפסה מסחרית יש לבצע הגהת ניקוד ועימוד עם שטח גלישה לחיתוך.</div>`;
+  }
+  function stickers(){
+    const groups=['הכול','אור','יסודות','דרך','לב'];
+    const selected=Studio.STICKERS.filter(s=>state.stickerFilter==='all'||s.group===state.stickerFilter);
+    return header('20 מדבקות · ניקוד עברי · PNG שקוף','גלריית הסטיקרים','עשרים משפטים מקוריים מתוך אטלס היצירה, בעיטורי זהב, צבעי אבני חן וקונטור לבן. לכל מדבקה תצוגה, PNG שקוף ו־SVG לעריכה.')+
+      `<div class="studio-intro"><span class="studio-hero-icon">❖</span><div><h2>מילים קטנות, אור גדול</h2><p>הקבצים נוצרים בדפדפן ללא תלות בשירות חיצוני. הורדת PNG מתבצעת ב־1600×1600 פיקסלים עם שקיפות מחוץ לעיצוב, לצד SVG חד להגדלה.</p></div><span class="tag">v0.0.4</span></div>
+      <div class="pill-tabs sticker-filter-tabs" aria-label="סינון סטיקרים">${groups.map((g,i)=>`<button data-sticker-filter="${i===0?'all':g}" class="${state.stickerFilter===(i===0?'all':g)?'active':''}">${g}${i===0?' · 20':''}</button>`).join('')}</div><p class="results-count">${selected.length} סטיקרים בתצוגה</p>
+      <div class="sticker-grid">${selected.map(s=>`<article class="sticker-card"><button class="sticker-art-button" data-sticker-open="${s.id}" aria-label="הגדלת סטיקר ${esc(s.title)}"><img src="${Studio.svgData(s)}" loading="lazy" alt="סטיקר ${esc(s.title)} עם טקסט עברי מנוקד וקונטור לבן"></button><div class="sticker-meta"><div><b>${esc(s.title)}</b><small>${esc(s.group)} · ${s.id} / 20</small></div><span class="tag">מקורי</span></div><div class="sticker-toolbar"><button class="mini-button" data-sticker-png="${s.id}">↓ PNG שקוף</button><button class="mini-button" data-sticker-svg="${s.id}">↓ SVG</button><button class="mini-button" data-sticker-open="${s.id}">⌕ תצוגה</button></div></article>`).join('')}</div>
+      <div class="rights-note">✍️ טקסטים מקוריים בהשראת נושאי הספר · איורים וקטוריים מקוריים באתר. להפקות דפוס מקצועיות מומלץ לפתוח את SVG בתוכנת עיצוב, לבדוק ניקוד ולהגדיר שטח גלישה ופרופיל צבע.</div>`;
+  }
+  function booklets(){
+    return header('3 ספרונים · 25 עמודי PDF · A5','ספריית הספרונים','ספרונים מקוריים לקריאה ולתרגול עם ניקוד בכותרות, הפניות להשראה, עימוד A5 והורדה ישירה כקובץ PDF.')+
+      `<div class="studio-intro booklet-intro"><span class="studio-hero-icon">▤</span><div><h2>ספרון קטן. דרך גדולה.</h2><p>כל חוברת מכילה שער מעוצב, פרקי לימוד, משפט מפתח, פעולה ליום ועמוד סיום. לחצו לתצוגה מקדימה או הורידו PDF מוכן להדפסה.</p></div></div>
+      <div class="booklet-grid">${Studio.BOOKLETS.map(b=>`<article class="booklet-entry"><button class="booklet-cover" style="--book-accent:${b.accent}" data-booklet="${b.id}" aria-label="תצוגת הספרון ${esc(b.title)}"><span class="booklet-orbit"></span><span class="booklet-symbol">✦</span><span class="booklet-version">WISDOMROOTS · 0.0.4</span><strong>${esc(b.title)}</strong><small>${esc(b.subtitle)}</small><span class="booklet-pages">${b.pages} עמודים · ${b.kind}</span></button><div class="booklet-detail"><h3>${esc(b.title)}</h3><p>${esc(b.description)}</p><div class="booklet-tags">${b.topics.map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="booklet-buttons"><button class="button button-small button-outline" data-booklet="${b.id}">⌕ תצוגה מקדימה</button><a class="button button-small button-primary" href="${Studio.bookPdf(b.id)}" download="WisdomRoots_Booklet_${b.id}_A5.pdf">↓ הורדת PDF</a></div></div></article>`).join('')}</div>
+      <div class="rights-note">📚 כל שלושת הספרונים הם עיבוד עברי מקורי, לא העתקת עמודים מספר המקור. מכילים פרשנות סמלית ותרגולים יומיים; טענות מדעיות והיסטוריות אינן מוצגות כעובדה ללא תיעוד.</div>`;
   }
   function map(){
     const topicOptions=TOPICS.map((t,i)=>`<option value="${i}" ${String(i)===state.mapTopic?'selected':''}>${esc(t[1])} (${t[2]}–${t[3]})</option>`).join('');
@@ -167,6 +187,8 @@
     if(q){
       for(const p of pages)if(clean([p.hebrew,p.english,p.group,p.page].join(' ')).includes(q))results.push({type:'page',title:`עמ׳ ${p.page} — ${p.hebrew}`,sub:p.english,id:p.page,label:'מפת הספר'});
       for(const g of GATES)if(clean([g.title,g.plain,g.virtue,g.quote,g.desc].join(' ')).includes(q))results.push({type:'card',title:g.title,sub:g.desc,id:g.id,label:'קלף'});
+      for(const s of Studio.STICKERS)if(clean([s.title,s.group,...s.lines].join(' ')).includes(q))results.push({type:'sticker',title:`סטיקר · ${s.title}`,sub:s.lines.join(' '),id:s.id,label:'גלריית סטיקרים'});
+      for(const b of Studio.BOOKLETS)if(clean([b.title,b.subtitle,b.description,...b.topics].join(' ')).includes(q))results.push({type:'booklet',title:`ספרון · ${b.title}`,sub:b.description,id:b.id,label:'ספריית ספרונים'});
       for(const t of tasks)if(clean([t.id,t.text,t.group].join(' ')).includes(q))results.push({type:'task',title:`${t.id} — ${t.text}`,sub:t.group,id:t.id,label:'משימה'});
       for(const doc of DOCS)for(const line of (contents[doc.file]||'').split('\n')){
         if(line.length>24&&clean(line).includes(q)&&!line.startsWith('|---')){results.push({type:'doc',title:doc.label,sub:line.replace(/^#+\s*/,'').slice(0,230),id:doc.file,label:'מסמך'});if(results.length>250)break;}
@@ -178,7 +200,7 @@
   }
   function render(){
     const main=$('#main');
-    main.innerHTML=({home,cards,map,read:reader,atlas,todo,changes,about,search}[state.route]||home)();
+    main.innerHTML=({home,cards,stickers,booklets,map,read:reader,atlas,todo,changes,about,search}[state.route]||home)();
     $('#currentCrumb').textContent=pageName();
     document.querySelectorAll('.nav-item').forEach(el=>{el.classList.toggle('active',el.dataset.route===state.route);el.setAttribute('aria-current',el.dataset.route===state.route?'page':'false');});
     if(state.route==='map')bindMapFields();
@@ -199,6 +221,23 @@
     $('#dialogCardImage').src=img('front',id);$('#dialogCardImage').alt=`חזית ${g.title}`;
     $('#dialogCardInfo').innerHTML=`<span class="tag">שער ${g.id} מתוך 7</span><h3>${g.emoji} ${esc(g.virtue)}</h3><p>${esc(g.desc)}</p><p class="action-copy">״${esc(g.quote)}״</p><p><strong>פעולה להיום:</strong> ${esc(g.action)}</p><p><small>השראה רעיונית: The Book of Wisdom, עמ׳ ${g.source}. המשפטים והאיור מקוריים.</small></p><div class="actions"><button class="button button-primary" id="dialogFlip">↻ הצגת גב הקלף</button><a class="button button-outline" id="dialogDownload" href="${img('front',id)}" download="wisdomroots-${id}-front.png">↓ הורדת תמונה</a></div>`;
     $('#cardDialog').showModal();
+  }
+  function openSticker(id){
+    const item=Studio.STICKERS.find(x=>x.id===id);if(!item)return;
+    $('#stickerDialogTitle').textContent=item.title;
+    $('#stickerDialogImage').src=Studio.svgData(item);
+    $('#stickerDialogImage').alt=`סטיקר ${item.title}`;
+    $('#stickerDialogInfo').innerHTML=`<span class="tag">סטיקר ${id} מתוך 20 · ${esc(item.group)}</span><h3>${esc(item.title)}</h3><p>איור מקורי עם רקע שקוף מחוץ למדבקה, מסגרת לבנה ונוסח עברי מנוקד.</p><p class="action-copy">${item.lines.map(esc).join(' ')}</p><div class="actions"><button class="button button-primary" data-sticker-png="${id}">↓ PNG שקוף 1600×1600</button><button class="button button-outline" data-sticker-svg="${id}">↓ SVG איכותי</button></div><p><small>WisdomRoots 0.0.4 · ייזום: Cyber Shamanic / AnLoMinus · עיבוד: OraKes</small></p>`;
+    $('#stickerDialog').showModal();
+  }
+  function openBooklet(id){
+    const item=Studio.BOOKLETS.find(x=>x.id===id);if(!item)return;
+    $('#bookletDialogTitle').textContent=item.title;
+    const path=Studio.bookPdf(id);
+    $('#bookletFrame').src=path+'#toolbar=1&navpanes=0';
+    $('#bookletDownload').href=path;$('#bookletDownload').download=`WisdomRoots_Booklet_${id}_A5.pdf`;
+    $('#bookletOpen').href=path;
+    $('#bookletDialog').showModal();
   }
   function flipDialog(){
     if(!state.selectedCard)return;state.selectedSide=state.selectedSide==='front'?'back':'front';
@@ -225,10 +264,15 @@
     const topicBtn=event.target.closest('[data-topic]');if(topicBtn){state.mapTopic=topicBtn.dataset.topic;state.mapQuery='';navigate('map');return;}
     const pageBtn=event.target.closest('[data-page]');if(pageBtn){showPage(pageBtn.dataset.page);return;}
     const cardBtn=event.target.closest('[data-card]');if(cardBtn){openCard(cardBtn.dataset.card);return;}
+    const stickerPng=event.target.closest('[data-sticker-png]');if(stickerPng){Studio.download(stickerPng.dataset.stickerPng,'png');return;}
+    const stickerSvg=event.target.closest('[data-sticker-svg]');if(stickerSvg){Studio.download(stickerSvg.dataset.stickerSvg,'svg');return;}
+    const stickerOpen=event.target.closest('[data-sticker-open]');if(stickerOpen){openSticker(stickerOpen.dataset.stickerOpen);return;}
+    const bookletBtn=event.target.closest('[data-booklet]');if(bookletBtn){openBooklet(bookletBtn.dataset.booklet);return;}
     const flipBtn=event.target.closest('[data-flip]');if(flipBtn){const id=flipBtn.dataset.flip;const box=document.querySelector(`.flip-scene[data-flip="${id}"]`);if(box){const flipped=box.classList.toggle('is-flipped');box.setAttribute('aria-pressed',String(flipped));}return;}
+    const stickerFilter=event.target.closest('[data-sticker-filter]');if(stickerFilter){state.stickerFilter=stickerFilter.dataset.stickerFilter;render();return;}
     const filterBtn=event.target.closest('[data-task-filter]');if(filterBtn){state.taskFilter=filterBtn.dataset.taskFilter;render();return;}
     const closeBtn=event.target.closest('[data-close]');if(closeBtn){document.getElementById(closeBtn.dataset.close)?.close();return;}
-    const resultBtn=event.target.closest('[data-result-type]');if(resultBtn){const type=resultBtn.dataset.resultType,id=resultBtn.dataset.resultId;if(type==='card')openCard(id);else if(type==='page'){navigate('map');showPage(id);}else if(type==='task'){state.taskQuery=id;navigate('todo');}else{state.doc=id;navigate('read');}return;}
+    const resultBtn=event.target.closest('[data-result-type]');if(resultBtn){const type=resultBtn.dataset.resultType,id=resultBtn.dataset.resultId;if(type==='card')openCard(id);else if(type==='sticker')openSticker(id);else if(type==='booklet')openBooklet(id);else if(type==='page'){navigate('map');showPage(id);}else if(type==='task'){state.taskQuery=id;navigate('todo');}else{state.doc=id;navigate('read');}return;}
     if(event.target.id==='dialogFlip'){flipDialog();return;}
   }
   function bindGlobal(){
@@ -246,7 +290,7 @@
     $('#themeBtn').addEventListener('click',()=>{const next=document.body.dataset.theme==='light'?'dark':'light';document.body.dataset.theme=next;localStorage.setItem('wisdomroots.theme',next);});
     $('#typeBtn').addEventListener('click',()=>{const scales=[1,1.08,1.16,1.24];const current=Number(localStorage.getItem('wisdomroots.fontScale')||1);const next=scales[(scales.indexOf(current)+1)%scales.length];document.documentElement.style.setProperty('--font-scale',next);localStorage.setItem('wisdomroots.fontScale',String(next));});
     for(const dlg of document.querySelectorAll('dialog'))dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close();});
-    window.addEventListener('hashchange',()=>{const route=location.hash.replace(/^#\//,'');if(['home','cards','map','read','atlas','todo','changes','about'].includes(route)){state.route=route;render();}});
+    window.addEventListener('hashchange',()=>{const route=location.hash.replace(/^#\//,'');if(['home','cards','stickers','booklets','map','read','atlas','todo','changes','about'].includes(route)){state.route=route;render();}});
   }
   async function init(){
     bindGlobal();
@@ -254,7 +298,7 @@
     document.documentElement.style.setProperty('--font-scale',localStorage.getItem('wisdomroots.fontScale')||'1');
     await Promise.all(DOCS.map(async d=>{try{const r=await fetch(fileUrl(d.file));if(!r.ok)throw Error('HTTP '+r.status);contents[d.file]=await r.text();}catch(e){contents[d.file]=`# קובץ לא זמין\n\nהמסמך ${d.file} לא נטען. נא לפתוח את האתר דרך שרת סטטי ולבדוק שקובצי התוכן קיימים.`;}}));
     parsePages();parseTasks();
-    const start=location.hash.replace(/^#\//,'');state.route=['home','cards','map','read','atlas','todo','changes','about'].includes(start)?start:'home';render();
+    const start=location.hash.replace(/^#\//,'');state.route=['home','cards','stickers','booklets','map','read','atlas','todo','changes','about'].includes(start)?start:'home';render();
   }
   init();
 })();
