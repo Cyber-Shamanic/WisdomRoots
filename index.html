@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1022">
+  <meta name="description" content="WisdomRoots — ספריית החכמה העברית: ניתוח 119 עמודי הספר, תוכן עניינים, שבעה קלפים מאוירים, אטלס יצירה ומפת משימות.">
+  <title>WisdomRoots — שורשי החכמה | ספרייה עברית</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">דלג לתוכן הראשי</a>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="ניווט ראשי">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span>✦</span></div>
+        <div><b>WisdomRoots</b><small>שוֹרְשֵׁי הַחָכְמָה</small></div>
+      </div>
+      <button class="version-badge" id="versionBtn" type="button" aria-label="פתיחת יומן הגרסאות"><span class="pulse-dot"></span> גרסה 0.0.3 <span aria-hidden="true">↗</span></button>
+      <p class="menu-label">הספרייה</p>
+      <nav class="main-nav" id="mainNav">
+        <button class="nav-item active" data-route="home"><span aria-hidden="true">⌂</span> בית הספרייה</button>
+        <button class="nav-item" data-route="cards"><span aria-hidden="true">✦</span> שבעת שערי הלב <em>7</em></button>
+        <button class="nav-item" data-route="map"><span aria-hidden="true">▦</span> מפת הספר <em>119</em></button>
+        <button class="nav-item" data-route="read"><span aria-hidden="true">☷</span> מחקר וניתוח</button>
+        <button class="nav-item" data-route="atlas"><span aria-hidden="true">✺</span> אטלס היצירה</button>
+        <button class="nav-item" data-route="todo"><span aria-hidden="true">☑</span> מפת המשימות <em>100</em></button>
+      </nav>
+      <p class="menu-label more-label">ניהול ותיעוד</p>
+      <nav class="main-nav secondary-nav">
+        <button class="nav-item" data-route="changes"><span aria-hidden="true">↻</span> יומן גרסאות</button>
+        <button class="nav-item" data-route="about"><span aria-hidden="true">ⓘ</span> אודות וקרדיטים</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <p class="eyebrow">מפת מסע</p>
+        <div class="sidebar-stat"><span>הנושאים שקוטלגו</span><strong>12 / 12</strong></div>
+        <div class="meter"><span style="width:100%"></span></div>
+        <p>מהאור הראשון ועד שבעת חוקי המעשה — הכול מסודר לפי מקור.</p>
+        <a class="credit-small" href="https://github.com/Anlominus" target="_blank" rel="noopener noreferrer">AnLoMinus · Cyber Shamanic ↗</a>
+      </div>
+    </aside>
+
+    <div class="backdrop" id="sidebarBackdrop" hidden></div>
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-leading">
+          <button class="icon-button mobile-menu" id="menuBtn" aria-label="פתיחת תפריט" aria-expanded="false">☰</button>
+          <div class="breadcrumbs"><span>WisdomRoots</span><span class="breadcrumb-sep">/</span><b id="currentCrumb">בית הספרייה</b></div>
+        </div>
+        <div class="toolbar">
+          <label class="global-search"><span aria-hidden="true">⌕</span><input id="globalSearch" type="search" placeholder="חיפוש בכל הספרייה..." aria-label="חיפוש בכל הספרייה" autocomplete="off"><kbd>/</kbd></label>
+          <button class="icon-button" id="typeBtn" aria-label="הגדלת טקסט" title="הגדלת טקסט">א+</button>
+          <button class="icon-button" id="themeBtn" aria-label="החלפת ערכת צבעים" title="ערכה בהירה / כהה">☀</button>
+        </div>
+      </header>
+      <main id="main" tabindex="-1"><div class="initial-loading"><div class="spinner"></div><p>טוענים את שורשי החכמה...</p></div></main>
+      <footer class="site-footer"><span>WisdomRoots · מהדורה 0.0.3</span><span>שבת, כ׳ בחשוון תשפ״ז · 31.10.2026</span><span>״לֵב נָבוֹן יִקְנֶה דָּעַת״ — משלי י״ח, ט״ו</span></footer>
+    </div>
+  </div>
+
+  <dialog id="cardDialog" class="detail-dialog" aria-label="תצוגת קלף">
+    <div class="dialog-top"><div><p class="eyebrow">WisdomRoots · Seven Gates</p><h2 id="dialogCardTitle"></h2></div><button class="icon-button" data-close="cardDialog" aria-label="סגירה">×</button></div>
+    <div class="dialog-card-layout"><div class="dialog-image-wrap"><img id="dialogCardImage" alt=""></div><div class="dialog-card-info" id="dialogCardInfo"></div></div>
+  </dialog>
+  <dialog id="versionDialog" class="doc-dialog" aria-label="יומן גרסאות">
+    <div class="dialog-top"><div><p class="eyebrow">תיעוד פיתוח</p><h2>יומן גרסאות</h2></div><button class="icon-button" data-close="versionDialog" aria-label="סגירה">×</button></div>
+    <article id="versionContent" class="markdown-body"></article>
+  </dialog>
+</body>
+</html>
